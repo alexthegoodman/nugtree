@@ -17,11 +17,14 @@ export const permissions = shield(
     Query: {
       "*": isAuthenticated,
       authenticate: not(isAuthenticated),
-      // getDashboardData: and(isAuthenticated, isAdmin),
+      getCategories: not(isAuthenticated),
+      getStrains: not(isAuthenticated),
     },
     Mutation: {
       "*": isAuthenticated,
       registerUser: not(isAuthenticated),
+      createCategory: not(isAuthenticated), // TODO: and(isAuthenticated, isAdmin),
+      createStrain: not(isAuthenticated), // TODO: and(isAuthenticated, isAdmin),
     },
   },
   {

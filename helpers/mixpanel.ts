@@ -1,4 +1,5 @@
-const Mixpanel = require("mixpanel");
+// const Mixpanel = require("mixpanel");
+import Mixpanel from "mixpanel";
 
 export default class MixpanelClient {
   public isDevelopment;
@@ -7,9 +8,11 @@ export default class MixpanelClient {
   constructor() {
     this.isDevelopment = process.env.NODE_ENV === "development";
 
-    this.mixpanel = Mixpanel.init(process.env.MIXPANEL_KEY, {
-      debug: this.isDevelopment,
-    });
+    this.mixpanel = null;
+
+    // this.mixpanel = Mixpanel.init(process.env.MIXPANEL_KEY, {
+    //   debug: this.isDevelopment,
+    // });
 
     // if (isDevelopment) {
     //   mixpanel.opt_out_tracking();

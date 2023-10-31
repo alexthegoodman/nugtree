@@ -1,5 +1,4 @@
 import { objectType } from "nexus";
-import { Context } from "../../context";
 
 export const UserType = objectType({
   name: "User",

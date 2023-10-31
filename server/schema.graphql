@@ -2,6 +2,14 @@
 ### Do not make changes to this file directly
 
 
+type Category {
+  createdAt: DateTime
+  description: String
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -14,14 +22,30 @@ scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 
 type Mutation {
   confirmFreemium: User
+  createCategory(description: String, name: String!): Category
   createCheckoutSession(priceId: String!): String
   createPortalSession: String
+  createStrain(categoryId: String!, femaleParentId: String, maleParentId: String, name: String!, notes: String): Strain
   registerUser: String!
 }
 
 type Query {
   authenticate: String
   currentUser: User
+  getCategories: [Category]
+  getStrains: [Strain]
+}
+
+type Strain {
+  category: Category
+  createdAt: DateTime
+  femaleParent: Strain
+  id: String
+  links: JSON
+  maleParent: Strain
+  name: String
+  notes: String
+  updatedAt: DateTime
 }
 
 type User {

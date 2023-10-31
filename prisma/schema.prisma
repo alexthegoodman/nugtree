@@ -25,3 +25,42 @@ model User {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
+
+model Category {
+  id String @id @unique @default(uuid())
+
+  name String @unique
+  description String?
+
+  strains Strain[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Strain {
+  id String @id @unique @default(uuid())
+
+  // strain info
+  name String @unique
+  notes String?
+  links Json?
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  // lineage
+  femaleParent Strain? @relation("FemaleParent", fields: [femaleParentId], references: [id])
+  femaleParentId String?
+  childrenAsFemale Strain[] @relation("FemaleParent")
+
+  maleParent Strain? @relation("MaleParent", fields: [maleParentId], references: [id])
+  maleParentId String?
+  childrenAsMale Strain[] @relation("MaleParent")
+
+  additionalParents Strain[] @relation("AdditionalParents")
+  childrenAsAdditional Strain[] @relation("AdditionalParents")
+
+  // tracking
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}

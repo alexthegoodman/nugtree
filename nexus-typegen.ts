@@ -52,8 +52,26 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Category: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Mutation: {};
   Query: {};
+  Strain: { // root type
+    category?: NexusGenRootTypes['Category'] | null; // Category
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    femaleParent?: NexusGenRootTypes['Strain'] | null; // Strain
+    id?: string | null; // String
+    links?: NexusGenScalars['JSON'] | null; // JSON
+    maleParent?: NexusGenRootTypes['Strain'] | null; // Strain
+    name?: string | null; // String
+    notes?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   User: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     email?: string | null; // String
@@ -73,15 +91,37 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Category: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Mutation: { // field return type
     confirmFreemium: NexusGenRootTypes['User'] | null; // User
+    createCategory: NexusGenRootTypes['Category'] | null; // Category
     createCheckoutSession: string | null; // String
     createPortalSession: string | null; // String
+    createStrain: NexusGenRootTypes['Strain'] | null; // Strain
     registerUser: string; // String!
   }
   Query: { // field return type
     authenticate: string | null; // String
     currentUser: NexusGenRootTypes['User'] | null; // User
+    getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    getStrains: Array<NexusGenRootTypes['Strain'] | null> | null; // [Strain]
+  }
+  Strain: { // field return type
+    category: NexusGenRootTypes['Category'] | null; // Category
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    femaleParent: NexusGenRootTypes['Strain'] | null; // Strain
+    id: string | null; // String
+    links: NexusGenScalars['JSON'] | null; // JSON
+    maleParent: NexusGenRootTypes['Strain'] | null; // Strain
+    name: string | null; // String
+    notes: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   User: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -92,15 +132,37 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Category: { // field return type name
+    createdAt: 'DateTime'
+    description: 'String'
+    id: 'String'
+    name: 'String'
+    updatedAt: 'DateTime'
+  }
   Mutation: { // field return type name
     confirmFreemium: 'User'
+    createCategory: 'Category'
     createCheckoutSession: 'String'
     createPortalSession: 'String'
+    createStrain: 'Strain'
     registerUser: 'String'
   }
   Query: { // field return type name
     authenticate: 'String'
     currentUser: 'User'
+    getCategories: 'Category'
+    getStrains: 'Strain'
+  }
+  Strain: { // field return type name
+    category: 'Category'
+    createdAt: 'DateTime'
+    femaleParent: 'Strain'
+    id: 'String'
+    links: 'JSON'
+    maleParent: 'Strain'
+    name: 'String'
+    notes: 'String'
+    updatedAt: 'DateTime'
   }
   User: { // field return type name
     createdAt: 'DateTime'
@@ -112,8 +174,19 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createCategory: { // args
+      description?: string | null; // String
+      name: string; // String!
+    }
     createCheckoutSession: { // args
       priceId: string; // String!
+    }
+    createStrain: { // args
+      categoryId: string; // String!
+      femaleParentId?: string | null; // String
+      maleParentId?: string | null; // String
+      name: string; // String!
+      notes?: string | null; // String
     }
   }
 }
