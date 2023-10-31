@@ -46,6 +46,7 @@ const { addNodes } = useVueFlow({
           </li>
         </ul>
       </div>
+      <!-- TODO: add classic Tree view in addition to the mind map view -->
     </UCard>
   </UContainer>
 </template>

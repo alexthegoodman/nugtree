@@ -12,9 +12,29 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.9.0",
-    "nuxt": "^3.7.4"
+    "@types/bcryptjs": "^2.4.5",
+    "@types/jsonwebtoken": "^9.0.4",
+    "@types/node": "^20.8.9",
+    "@types/uuid": "^9.0.6",
+    "nuxt": "^3.7.4",
+    "prisma": "^5.5.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@vue-flow/core": "^1.24.0"
+    "@apollo/server": "^4.9.5",
+    "@as-integrations/h3": "^1.1.6",
+    "@prisma/client": "^5.5.2",
+    "@vue-flow/core": "^1.24.0",
+    "bcryptjs": "^2.4.3",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
+    "graphql-shield": "^7.6.5",
+    "jsonwebtoken": "^9.0.2",
+    "mixpanel": "^0.18.0",
+    "nexus": "^1.3.0",
+    "nuxt-graphql-server": "^3.0.0",
+    "stripe": "^14.2.0",
+    "uuid": "^9.0.1"
   }
 }
