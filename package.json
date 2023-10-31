@@ -1,5 +1,7 @@
 {
-  "name": "nuxt-app",
+  "name": "nugtree",
+  "version": "1.0.0",
+  "description": "Browse cannabis strain lineages in a visual format",
   "private": true,
   "type": "module",
   "scripts": {
