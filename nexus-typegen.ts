@@ -189,6 +189,13 @@ export interface NexusGenArgTypes {
       notes?: string | null; // String
     }
   }
+  Query: {
+    getStrains: { // args
+      limit?: number | null; // Int
+      page?: number | null; // Int
+      query?: string | null; // String
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

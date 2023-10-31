@@ -33,7 +33,7 @@ type Query {
   authenticate: String
   currentUser: User
   getCategories: [Category]
-  getStrains: [Strain]
+  getStrains(limit: Int, page: Int, query: String): [Strain]
 }
 
 type Strain {
