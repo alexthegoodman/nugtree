@@ -14,15 +14,30 @@ const columns = [
     sortable: true,
   },
   {
-    key: "completed",
-    label: "Status",
+    key: "category.name",
+    label: "Category",
     sortable: true,
   },
   {
-    key: "actions",
-    label: "Actions",
-    sortable: false,
+    key: "femaleParent.name",
+    label: "Female Parent",
+    sortable: true,
   },
+  {
+    key: "maleParent.name",
+    label: "Male Parent",
+    sortable: true,
+  },
+  // {
+  //   key: "completed",
+  //   label: "Status",
+  //   sortable: true,
+  // },
+  // {
+  //   key: "actions",
+  //   label: "Actions",
+  //   sortable: false,
+  // },
 ];
 
 const selectedColumns = ref(columns);

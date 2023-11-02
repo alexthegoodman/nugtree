@@ -1,9 +1,12 @@
+import type { info } from 'console';
+
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 import { GET_CATEGORIES } from "@/graphql/queries/categories";
+import { CREATE_STRAIN } from "~/graphql/queries/strains";
 
-// get categories with apollo
+const { mutate } = useMutation(CREATE_STRAIN);
 const { data: categories } = useAsyncQuery(GET_CATEGORIES) as any;
 const categoryData = computed(() => categories?.value?.getCategories);
 const categoryList = computed(() =>
@@ -34,8 +37,13 @@ const state = reactive({
 const stateRefs = toRefs(state);
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  // Do something with event.data
-  console.log(event.data);
+  const formData = event.data;
+  console.log("onSubmit", formData);
+  const { data } = await mutate(formData);
+  const newStrain = data?.createStrain;
+  console.info("new strain data", newStrain);
+  // go to strains
+  router.push({ name: "strains" });
 }
 </script>
 
@@ -48,6 +56,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UTextarea v-model="state.notes" />
     </UFormGroup>
     <UFormGroup label="Category" name="categoryId">
+      {{ state.categoryId }}
       <USelect
         v-model="state.categoryId"
         :options="categoryList"
@@ -60,6 +69,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         v-model="state.femaleParentId"
         :name="'femaleParentId'"
       />
+    </UFormGroup>
+    <UFormGroup label="Male Parent" name="maleParentId">
+      {{ state.maleParentId }}
+      <FormStrainSelect v-model="state.maleParentId" :name="'maleParentId'" />
     </UFormGroup>
 
     <UButton type="submit">Save Strain</UButton>

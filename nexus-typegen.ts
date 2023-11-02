@@ -62,12 +62,9 @@ export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   Strain: { // root type
-    category?: NexusGenRootTypes['Category'] | null; // Category
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
-    femaleParent?: NexusGenRootTypes['Strain'] | null; // Strain
     id?: string | null; // String
     links?: NexusGenScalars['JSON'] | null; // JSON
-    maleParent?: NexusGenRootTypes['Strain'] | null; // Strain
     name?: string | null; // String
     notes?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
