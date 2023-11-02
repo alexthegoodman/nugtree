@@ -6,6 +6,7 @@ import type { FormSubmitEvent } from "#ui/types";
 import { GET_CATEGORIES } from "@/graphql/queries/categories";
 import { CREATE_STRAIN } from "~/graphql/queries/strains";
 
+const router = useRouter();
 const { mutate } = useMutation(CREATE_STRAIN);
 const { data: categories } = useAsyncQuery(GET_CATEGORIES) as any;
 const categoryData = computed(() => categories?.value?.getCategories);
@@ -43,7 +44,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const newStrain = data?.createStrain;
   console.info("new strain data", newStrain);
   // go to strains
-  router.push({ name: "strains" });
+  router.push({ path: "/manager/strains" });
 }
 </script>
 

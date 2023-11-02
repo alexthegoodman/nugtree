@@ -155,7 +155,7 @@ console.info("strain data", tableData.value);
           >
             Strains
           </h2>
-          <UButton to="add">Add Strain</UButton>
+          <UButton to="/manager/strains/add">Add Strain</UButton>
         </div>
       </template>
 
