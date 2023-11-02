@@ -55,6 +55,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       />
     </UFormGroup>
     <UFormGroup label="Female Parent" name="femaleParentId">
+      {{ state.femaleParentId }}
       <FormStrainSelect
         v-model="state.femaleParentId"
         :name="'femaleParentId'"

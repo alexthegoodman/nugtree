@@ -182,7 +182,7 @@ export interface NexusGenArgTypes {
       priceId: string; // String!
     }
     createStrain: { // args
-      categoryId: string; // String!
+      categoryId?: string | null; // String
       femaleParentId?: string | null; // String
       maleParentId?: string | null; // String
       name: string; // String!

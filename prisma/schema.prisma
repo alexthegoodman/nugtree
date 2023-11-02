@@ -45,8 +45,8 @@ model Strain {
   name String @unique
   notes String?
   links Json?
-  category Category @relation(fields: [categoryId], references: [id])
-  categoryId String
+  category Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
 
   // lineage
   femaleParent Strain? @relation("FemaleParent", fields: [femaleParentId], references: [id])

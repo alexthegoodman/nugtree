@@ -22,3 +22,23 @@ export const GET_STRAINS = gql`
     }
   }
 `;
+
+export const CREATE_STRAIN = gql`
+  mutation createStrain(
+    $name: String!
+    $categoryId: String
+    $femaleParentId: String
+    $maleParentId: String
+    $notes: String
+  ) {
+    createStrain(
+      name: $name
+      categoryId: $categoryId
+      femaleParentId: $femaleParentId
+      maleParentId: $maleParentId
+      notes: $notes
+    ) {
+      id
+    }
+  }
+`;

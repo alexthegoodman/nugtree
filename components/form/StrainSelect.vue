@@ -1,5 +1,6 @@
 import type { info } from 'console';
 <script lang="ts">
+import { GET_STRAINS, CREATE_STRAIN } from "~/graphql/queries/strains";
 export default defineComponent({
   name: "StrainSelect",
   props: {
@@ -13,7 +14,7 @@ export default defineComponent({
     },
   },
   data: () => ({
-    options,
+    // options,
     selected,
   }),
   setup(props, { emit }) {
@@ -32,33 +33,66 @@ export default defineComponent({
       localValue.value = newValue;
     });
 
+    const { mutate } = useMutation(CREATE_STRAIN);
+
     // Watch for changes in the local data property and emit an event to update the prop
-    watch(localValue, (newValue) => {
-      emit("update:modelValue", newValue.id);
+    watch(localValue, async (newValue) => {
+      console.info("newValue", newValue);
+
+      emit("update:modelValue", "");
+
+      if (!newValue.id) {
+        // TODO: create new strain via api
+        console.info("create new strain");
+        const { data } = await mutate({
+          name: newValue.name,
+        });
+        const newStrain = data?.createStrain;
+
+        console.info("new strain data", newStrain);
+
+        emit("update:modelValue", newStrain.id);
+      } else if (newValue.id) {
+        emit("update:modelValue", newValue.id);
+      } else {
+        emit("update:modelValue", "");
+      }
     });
 
-    const updateValue = (newValue: string) => {
-      emit("update:modelValue", newValue);
-    };
+    // const updateValue = (newValue: string) => {
+    //   emit("update:modelValue", newValue);
+    // };
+
+    const { data: strains } = useAsyncQuery(GET_STRAINS) as any;
+
+    console.info("strains", strains.value);
+
+    const options = computed(() =>
+      strains.value?.getStrains.map((s) => {
+        return { id: s.id, name: s.name };
+      })
+    );
 
     return {
-      updateValue,
+      //   updateValue,
       localValue,
+      strains,
+      options,
     };
   },
 });
 
-const options = ref([
-  { id: 1, name: "bug" },
-  { id: 2, name: "documentation" },
-  { id: 3, name: "duplicate" },
-  { id: 4, name: "enhancement" },
-  { id: 5, name: "good first issue" },
-  { id: 6, name: "help wanted" },
-  { id: 7, name: "invalid" },
-  { id: 8, name: "question" },
-  { id: 9, name: "wontfix" },
-]);
+// const options = ref([
+//   { id: 1, name: "bug" },
+//   { id: 2, name: "documentation" },
+//   { id: 3, name: "duplicate" },
+//   { id: 4, name: "enhancement" },
+//   { id: 5, name: "good first issue" },
+//   { id: 6, name: "help wanted" },
+//   { id: 7, name: "invalid" },
+//   { id: 8, name: "question" },
+//   { id: 9, name: "wontfix" },
+// ]);
 
 const selected = ref([]);
 </script>

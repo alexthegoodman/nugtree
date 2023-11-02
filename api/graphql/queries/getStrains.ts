@@ -44,7 +44,7 @@ export const GetStrainsQuery = extendType({
         if (page && limit) {
           addtData = {
             ...addtData,
-            skip: page * limit,
+            skip: (page - 1) * limit,
             take: limit,
           };
         }

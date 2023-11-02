@@ -9,7 +9,7 @@ export const CreateStrainMutation = extendType({
       args: {
         name: nonNull(stringArg()),
         notes: nullable(stringArg()),
-        categoryId: nonNull(stringArg()),
+        categoryId: nullable(stringArg()),
         femaleParentId: nullable(stringArg()),
         maleParentId: nullable(stringArg()),
       },
@@ -22,12 +22,18 @@ export const CreateStrainMutation = extendType({
         let saveData = {
           name,
           notes,
-          category: {
-            connect: {
-              id: categoryId,
-            },
-          },
         } as any;
+
+        if (categoryId) {
+          saveData = {
+            ...saveData,
+            category: {
+              connect: {
+                id: categoryId,
+              },
+            },
+          };
+        }
 
         if (femaleParentId) {
           saveData = {
