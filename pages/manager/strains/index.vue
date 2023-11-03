@@ -136,14 +136,16 @@ const pageTo = computed(() =>
 
 // Data
 // fetch data with nuxt apollo
-const variables = {
-  query: search.value,
+// update variables as dependent variables change
+const variables = computed(() => ({
   page: page.value,
   limit: pageCount.value,
-};
-const { data, pending } = (await useAsyncQuery(GET_STRAINS, variables)) as any;
+  query: search.value,
+}));
+
+const { result, loading } = (await useQuery(GET_STRAINS, variables)) as any;
 const tableData = computed(() => {
-  return data.value?.getStrains || [];
+  return result.value?.getStrains || [];
 });
 
 console.info("strain data", tableData.value);
@@ -245,7 +247,7 @@ console.info("strain data", tableData.value);
         v-model="selectedRows"
         :rows="tableData"
         :columns="columnsTable"
-        :loading="pending"
+        :loading="loading"
         sort-asc-icon="i-heroicons-arrow-up"
         sort-desc-icon="i-heroicons-arrow-down"
         class="w-full"
@@ -286,7 +288,6 @@ console.info("strain data", tableData.value);
               results
             </span>
           </div>
-
           <UPagination
             v-model="page"
             :page-count="pageCount"

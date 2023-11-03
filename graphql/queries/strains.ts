@@ -22,8 +22,8 @@ const STRAIN_FRAGMENT = gql`
 `;
 
 export const GET_STRAINS = gql`
-  query getStrains {
-    getStrains {
+  query getStrains($query: String, $page: Int, $limit: Int) {
+    getStrains(query: $query, page: $page, limit: $limit) {
       ...StrainFragment
     }
   }

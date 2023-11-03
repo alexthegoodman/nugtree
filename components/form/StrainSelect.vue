@@ -63,7 +63,9 @@ export default defineComponent({
     //   emit("update:modelValue", newValue);
     // };
 
-    const { data: strains } = useAsyncQuery(GET_STRAINS) as any;
+    const { data: strains } = useAsyncQuery(GET_STRAINS, {
+      limit: 10000,
+    }) as any;
 
     console.info("strains", strains.value);
 
