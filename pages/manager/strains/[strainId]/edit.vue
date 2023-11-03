@@ -5,11 +5,11 @@ const route = useRoute();
 
 console.info("route", route.params.strainId);
 
-const { data: strainData } = useAsyncQuery(GET_STRAIN_BY_ID, {
+const { result: strainData, loading } = useQuery(GET_STRAIN_BY_ID, {
   id: route.params.strainId,
 }) as any;
 
-console.info("strainData", strainData.value);
+console.info("strainData", strainData.value, loading.value);
 
 const strain = computed(() => strainData?.value?.getStrainById);
 
@@ -18,6 +18,6 @@ console.info("strain", strain.value);
 
 <template>
   <UContainer>
-    <FormAddStrain :initialState="strain" />
+    <FormAddStrain v-if="strain" :initialState="strain" />
   </UContainer>
 </template>
