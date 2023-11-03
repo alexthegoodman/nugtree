@@ -40,11 +40,14 @@ type Query {
 
 type Strain {
   category: Category
+  categoryId: String
   createdAt: DateTime
   femaleParent: Strain
+  femaleParentId: String
   id: String
   links: JSON
   maleParent: Strain
+  maleParentId: String
   name: String
   notes: String
   updatedAt: DateTime

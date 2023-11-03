@@ -62,9 +62,12 @@ export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   Strain: { // root type
+    categoryId?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    femaleParentId?: string | null; // String
     id?: string | null; // String
     links?: NexusGenScalars['JSON'] | null; // JSON
+    maleParentId?: string | null; // String
     name?: string | null; // String
     notes?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -113,11 +116,14 @@ export interface NexusGenFieldTypes {
   }
   Strain: { // field return type
     category: NexusGenRootTypes['Category'] | null; // Category
+    categoryId: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     femaleParent: NexusGenRootTypes['Strain'] | null; // Strain
+    femaleParentId: string | null; // String
     id: string | null; // String
     links: NexusGenScalars['JSON'] | null; // JSON
     maleParent: NexusGenRootTypes['Strain'] | null; // Strain
+    maleParentId: string | null; // String
     name: string | null; // String
     notes: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -156,11 +162,14 @@ export interface NexusGenFieldTypeNames {
   }
   Strain: { // field return type name
     category: 'Category'
+    categoryId: 'String'
     createdAt: 'DateTime'
     femaleParent: 'Strain'
+    femaleParentId: 'String'
     id: 'String'
     links: 'JSON'
     maleParent: 'Strain'
+    maleParentId: 'String'
     name: 'String'
     notes: 'String'
     updatedAt: 'DateTime'

@@ -4,14 +4,17 @@ const STRAIN_FRAGMENT = gql`
     name
     notes
     links
+    categoryId
     category {
       id
       name
     }
+    femaleParentId
     femaleParent {
       id
       name
     }
+    maleParentId
     maleParent {
       id
       name

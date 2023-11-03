@@ -9,6 +9,7 @@ export const StrainType = objectType({
     t.field("notes", { type: "String" });
     t.field("links", { type: "JSON" });
 
+    t.field("categoryId", { type: "String" });
     t.field("category", {
       type: "Category",
       resolve: async (strain, __, context: Context) => {
@@ -23,6 +24,7 @@ export const StrainType = objectType({
         });
       },
     });
+    t.field("femaleParentId", { type: "String" });
     t.field("femaleParent", {
       type: "Strain",
       resolve: async (strain, __, context: Context) => {
@@ -37,6 +39,7 @@ export const StrainType = objectType({
         });
       },
     });
+    t.field("maleParentId", { type: "String" });
     t.field("maleParent", {
       type: "Strain",
       resolve: async (strain, __, context: Context) => {

@@ -27,8 +27,10 @@
   "dependencies": {
     "@apollo/server": "^4.9.5",
     "@as-integrations/h3": "^1.1.6",
+    "@grapoza/vue-tree": "^5.2.2",
     "@prisma/client": "^5.5.2",
     "@vue-flow/core": "^1.24.0",
+    "@vue/apollo-composable": "^4.0.0-beta.11",
     "bcryptjs": "^2.4.3",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
@@ -39,8 +41,7 @@
     "nuxt-graphql-server": "^3.0.0",
     "stripe": "^14.2.0",
     "uuid": "^9.0.1",
-    "yup": "^1.3.2",
-    "@vue/apollo-composable": "^4.0.0-beta.11"
+    "yup": "^1.3.2"
   },
   "overrides": {
     "vue": "latest"
