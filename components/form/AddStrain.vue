@@ -1,13 +1,23 @@
 import type { info } from 'console';
-
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 import { GET_CATEGORIES } from "@/graphql/queries/categories";
-import { CREATE_STRAIN } from "~/graphql/queries/strains";
+import { CREATE_STRAIN, UPDATE_STRAIN_BY_ID } from "~/graphql/queries/strains";
+
+const props = defineProps({
+  initialState: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+
+console.info("props addstrain", props.initialState);
 
 const router = useRouter();
+const route = useRoute();
 const { mutate } = useMutation(CREATE_STRAIN);
+const { mutate: mutateById } = useMutation(UPDATE_STRAIN_BY_ID);
 const { data: categories } = useAsyncQuery(GET_CATEGORIES) as any;
 const categoryData = computed(() => categories?.value?.getCategories);
 const categoryList = computed(() =>
@@ -27,11 +37,11 @@ const schema = object({
 type Schema = InferType<typeof schema>;
 
 const state = reactive({
-  name: undefined,
-  notes: undefined,
-  categoryId: undefined,
-  femaleParentId: undefined,
-  maleParentId: undefined,
+  name: props.initialState.name || undefined,
+  notes: props.initialState.notes || undefined,
+  categoryId: props.initialState.category?.id || undefined,
+  femaleParentId: props.initialState.femaleParent?.id || undefined,
+  maleParentId: props.initialState.maleParent?.id || undefined,
 });
 
 // Convert the reactive object to a plain object
@@ -40,11 +50,27 @@ const stateRefs = toRefs(state);
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   const formData = event.data;
   console.log("onSubmit", formData);
-  const { data } = await mutate(formData);
-  const newStrain = data?.createStrain;
-  console.info("new strain data", newStrain);
-  // go to strains
-  router.push({ path: "/manager/strains" });
+
+  if (props.initialState.name) {
+    // update
+
+    const { data } = await mutateById({
+      id: route.params.strainId,
+      ...formData,
+    });
+    const updatedStrain = data?.updateStrainById;
+    console.info("updated strain data", updatedStrain);
+    // go to strains
+    router.push({ path: "/manager/strains" });
+  } else {
+    // create
+
+    const { data } = await mutate(formData);
+    const newStrain = data?.createStrain;
+    console.info("new strain data", newStrain);
+    // go to strains
+    router.push({ path: "/manager/strains" });
+  }
 }
 </script>
 

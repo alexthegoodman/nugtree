@@ -6,6 +6,7 @@ export * from "./queries/currentUser";
 export * from "./queries/authenticate";
 export * from "./queries/getCategories";
 export * from "./queries/getStrains";
+export * from "./queries/getStrainById";
 
 export * from "./mutations/confirmFreemium";
 export * from "./mutations/createCheckoutSession";
@@ -13,3 +14,4 @@ export * from "./mutations/createPortalSession";
 export * from "./mutations/registerUser";
 export * from "./mutations/createCategory";
 export * from "./mutations/createStrain";
+export * from "./mutations/updateStrainById";

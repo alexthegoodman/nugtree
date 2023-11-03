@@ -19,12 +19,14 @@ export const permissions = shield(
       authenticate: not(isAuthenticated),
       getCategories: not(isAuthenticated),
       getStrains: not(isAuthenticated),
+      getStrainById: not(isAuthenticated),
     },
     Mutation: {
       "*": isAuthenticated,
       registerUser: not(isAuthenticated),
       createCategory: not(isAuthenticated), // TODO: and(isAuthenticated, isAdmin),
       createStrain: not(isAuthenticated), // TODO: and(isAuthenticated, isAdmin),
+      updateStrainById: not(isAuthenticated), // TODO: and(isAuthenticated, isAdmin),
     },
   },
   {

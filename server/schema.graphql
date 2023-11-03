@@ -27,12 +27,14 @@ type Mutation {
   createPortalSession: String
   createStrain(categoryId: String, femaleParentId: String, maleParentId: String, name: String!, notes: String): Strain
   registerUser: String!
+  updateStrainById(categoryId: String, femaleParentId: String, id: String!, maleParentId: String, name: String, notes: String): Strain
 }
 
 type Query {
   authenticate: String
   currentUser: User
   getCategories: [Category]
+  getStrainById(id: String!): Strain
   getStrains(limit: Int, page: Int, query: String): [Strain]
 }
 

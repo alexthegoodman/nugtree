@@ -1,43 +1,45 @@
 <script lang="ts" setup>
 import { GET_STRAINS } from "@/graphql/queries/strains";
 
+const router = useRouter();
+
 // Columns
 const columns = [
   {
     key: "id",
     label: "ID",
-    // sortable: true,
+    sortable: false,
   },
   {
     key: "name",
     label: "Name",
-    sortable: true,
+    sortable: false,
   },
   {
     key: "category.name",
     label: "Category",
-    sortable: true,
+    sortable: false,
   },
   {
     key: "femaleParent.name",
     label: "Female Parent",
-    sortable: true,
+    sortable: false,
   },
   {
     key: "maleParent.name",
     label: "Male Parent",
-    sortable: true,
+    sortable: false,
   },
   // {
   //   key: "completed",
   //   label: "Status",
   //   sortable: true,
   // },
-  // {
-  //   key: "actions",
-  //   label: "Actions",
-  //   sortable: false,
-  // },
+  {
+    key: "actions",
+    label: "Actions",
+    sortable: false,
+  },
 ];
 
 const selectedColumns = ref(columns);
@@ -58,21 +60,36 @@ function select(row) {
 }
 
 // Actions
-const actions = [
+const items = (row) => [
   [
     {
-      key: "completed",
-      label: "Completed",
-      icon: "i-heroicons-check",
+      label: "Edit",
+      icon: "i-heroicons-pencil-square-20-solid",
+      click: () => {
+        router.push({ path: `/manager/strains/${row.id}/edit` });
+      },
     },
+    // {
+    //   label: "Duplicate",
+    //   icon: "i-heroicons-document-duplicate-20-solid",
+    // },
   ],
-  [
-    {
-      key: "uncompleted",
-      label: "In Progress",
-      icon: "i-heroicons-arrow-path",
-    },
-  ],
+  // [
+  //   {
+  //     label: "Archive",
+  //     icon: "i-heroicons-archive-box-20-solid",
+  //   },
+  //   {
+  //     label: "Move",
+  //     icon: "i-heroicons-arrow-right-circle-20-solid",
+  //   },
+  // ],
+  // [
+  //   {
+  //     label: "Delete",
+  //     icon: "i-heroicons-trash-20-solid",
+  //   },
+  // ],
 ];
 
 // Filters
@@ -192,7 +209,7 @@ console.info("strain data", tableData.value);
         <div class="flex gap-1.5 items-center">
           <UDropdown
             v-if="selectedRows.length > 1"
-            :items="actions"
+            :items="items"
             :ui="{ width: 'w-36' }"
           >
             <UButton
@@ -245,25 +262,13 @@ console.info("strain data", tableData.value);
         </template>
 
         <template #actions-data="{ row }">
-          <UButton
-            v-if="!row.completed"
-            icon="i-heroicons-check"
-            size="2xs"
-            color="emerald"
-            variant="outline"
-            :ui="{ rounded: 'rounded-full' }"
-            square
-          />
-
-          <UButton
-            v-else
-            icon="i-heroicons-arrow-path"
-            size="2xs"
-            color="orange"
-            variant="outline"
-            :ui="{ rounded: 'rounded-full' }"
-            square
-          />
+          <UDropdown :items="items(row)">
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-ellipsis-horizontal-20-solid"
+            />
+          </UDropdown>
         </template>
       </UTable>
 

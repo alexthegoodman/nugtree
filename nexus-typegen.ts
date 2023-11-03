@@ -102,11 +102,13 @@ export interface NexusGenFieldTypes {
     createPortalSession: string | null; // String
     createStrain: NexusGenRootTypes['Strain'] | null; // Strain
     registerUser: string; // String!
+    updateStrainById: NexusGenRootTypes['Strain'] | null; // Strain
   }
   Query: { // field return type
     authenticate: string | null; // String
     currentUser: NexusGenRootTypes['User'] | null; // User
     getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    getStrainById: NexusGenRootTypes['Strain'] | null; // Strain
     getStrains: Array<NexusGenRootTypes['Strain'] | null> | null; // [Strain]
   }
   Strain: { // field return type
@@ -143,11 +145,13 @@ export interface NexusGenFieldTypeNames {
     createPortalSession: 'String'
     createStrain: 'Strain'
     registerUser: 'String'
+    updateStrainById: 'Strain'
   }
   Query: { // field return type name
     authenticate: 'String'
     currentUser: 'User'
     getCategories: 'Category'
+    getStrainById: 'Strain'
     getStrains: 'Strain'
   }
   Strain: { // field return type name
@@ -185,8 +189,19 @@ export interface NexusGenArgTypes {
       name: string; // String!
       notes?: string | null; // String
     }
+    updateStrainById: { // args
+      categoryId?: string | null; // String
+      femaleParentId?: string | null; // String
+      id: string; // String!
+      maleParentId?: string | null; // String
+      name?: string | null; // String
+      notes?: string | null; // String
+    }
   }
   Query: {
+    getStrainById: { // args
+      id: string; // String!
+    }
     getStrains: { // args
       limit?: number | null; // Int
       page?: number | null; // Int
