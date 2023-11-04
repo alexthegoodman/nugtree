@@ -1,4 +1,4 @@
-import { extendType, nonNull, nullable, stringArg } from "nexus";
+import { extendType, list, nonNull, nullable, stringArg } from "nexus";
 import type { Context } from "../../context";
 
 export const CreateStrainMutation = extendType({
@@ -12,10 +12,18 @@ export const CreateStrainMutation = extendType({
         categoryId: nullable(stringArg()),
         femaleParentId: nullable(stringArg()),
         maleParentId: nullable(stringArg()),
+        additionalParentIds: nullable(list(stringArg())),
       },
       resolve: async (
         _,
-        { name, notes, categoryId, femaleParentId, maleParentId },
+        {
+          name,
+          notes,
+          categoryId,
+          femaleParentId,
+          maleParentId,
+          additionalParentIds,
+        },
         { prisma, currentUser }: Context,
         x
       ) => {
@@ -53,6 +61,17 @@ export const CreateStrainMutation = extendType({
               connect: {
                 id: maleParentId,
               },
+            },
+          };
+        }
+
+        if (additionalParentIds) {
+          saveData = {
+            ...saveData,
+            additionalParents: {
+              connect: additionalParentIds.map((id) => ({
+                id,
+              })),
             },
           };
         }

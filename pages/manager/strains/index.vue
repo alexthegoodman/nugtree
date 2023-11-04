@@ -5,11 +5,11 @@ const router = useRouter();
 
 // Columns
 const columns = [
-  {
-    key: "id",
-    label: "ID",
-    sortable: false,
-  },
+  // {
+  //   key: "id",
+  //   label: "ID",
+  //   sortable: false,
+  // },
   {
     key: "name",
     label: "Name",
@@ -35,6 +35,11 @@ const columns = [
   //   label: "Status",
   //   sortable: true,
   // },
+  {
+    key: "notes",
+    label: "Notes",
+    sortable: false,
+  },
   {
     key: "actions",
     label: "Actions",

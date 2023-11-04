@@ -28,9 +28,14 @@ const treeify = (list, idAttr, parentAttr, childrenAttr) => {
     let displayObj = obj;
     // if (displayObj.name && displayObj.categoryId) {
     if (displayObj?.femaleParent?.name && displayObj?.maleParent?.name) {
-      displayObj.label = `${displayObj?.femaleParent?.name} x ${displayObj?.maleParent?.name} (${displayObj?.name})`;
+      displayObj.label = `${displayObj?.femaleParent?.name} x ${displayObj?.maleParent?.name}`;
+      if (displayObj?.additionalParents?.length > 0) {
+        displayObj.label += ` x ${displayObj?.additionalParents
+          ?.map((p) => p.name)
+          .join(" x ")}`;
+      }
     } else {
-      displayObj.label = `${displayObj?.name}`;
+      displayObj.label = ``;
     }
 
     lookup[obj[idAttr]] = displayObj;

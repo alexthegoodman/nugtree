@@ -42,6 +42,8 @@ const state = reactive({
   categoryId: props.initialState.category?.id || undefined,
   femaleParentId: props.initialState.femaleParent?.id || undefined,
   maleParentId: props.initialState.maleParent?.id || undefined,
+  additionalParentIds:
+    props.initialState.additionalParents?.map((p) => p.id) || [],
 });
 
 // Convert the reactive object to a plain object
@@ -90,17 +92,28 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         value-attribute="id"
       />
     </UFormGroup>
-    <UFormGroup label="Female Parent" name="femaleParentId">
-      {{ state.femaleParentId }}
-      <FormStrainSelect
-        v-model="state.femaleParentId"
-        :name="'femaleParentId'"
-      />
-    </UFormGroup>
-    <UFormGroup label="Male Parent" name="maleParentId">
-      {{ state.maleParentId }}
-      <FormStrainSelect v-model="state.maleParentId" :name="'maleParentId'" />
-    </UFormGroup>
+    <!-- thirds grid -->
+    <section class="grid grid-cols-3">
+      <UFormGroup label="Female Parent" name="femaleParentId">
+        {{ state.femaleParentId }}
+        <FormStrainSelect
+          v-model="state.femaleParentId"
+          :name="'femaleParentId'"
+        />
+      </UFormGroup>
+      <UFormGroup label="Male Parent" name="maleParentId">
+        {{ state.maleParentId }}
+        <FormStrainSelect v-model="state.maleParentId" :name="'maleParentId'" />
+      </UFormGroup>
+      <UFormGroup label="Additional Parents" name="additionalParentIds">
+        {{ state.additionalParentIds }}
+        <FormStrainSelect
+          v-model="state.additionalParentIds"
+          :name="'additionalParentIds'"
+          multiple
+        />
+      </UFormGroup>
+    </section>
 
     <UButton type="submit">Save Strain</UButton>
   </UForm>

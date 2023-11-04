@@ -25,9 +25,9 @@ type Mutation {
   createCategory(description: String, name: String!): Category
   createCheckoutSession(priceId: String!): String
   createPortalSession: String
-  createStrain(categoryId: String, femaleParentId: String, maleParentId: String, name: String!, notes: String): Strain
+  createStrain(additionalParentIds: [String], categoryId: String, femaleParentId: String, maleParentId: String, name: String!, notes: String): Strain
   registerUser: String!
-  updateStrainById(categoryId: String, femaleParentId: String, id: String!, maleParentId: String, name: String, notes: String): Strain
+  updateStrainById(additionalParentIds: [String], categoryId: String, femaleParentId: String, id: String!, maleParentId: String, name: String, notes: String): Strain
 }
 
 type Query {
@@ -39,6 +39,7 @@ type Query {
 }
 
 type Strain {
+  additionalParents: [Strain]
   category: Category
   categoryId: String
   createdAt: DateTime

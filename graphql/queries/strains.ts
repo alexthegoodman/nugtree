@@ -19,6 +19,10 @@ const STRAIN_FRAGMENT = gql`
       id
       name
     }
+    additionalParents {
+      id
+      name
+    }
     updatedAt
     createdAt
   }
@@ -48,6 +52,7 @@ export const CREATE_STRAIN = gql`
     $categoryId: String
     $femaleParentId: String
     $maleParentId: String
+    $additionalParentIds: [String!]
     $notes: String
   ) {
     createStrain(
@@ -55,6 +60,7 @@ export const CREATE_STRAIN = gql`
       categoryId: $categoryId
       femaleParentId: $femaleParentId
       maleParentId: $maleParentId
+      additionalParentIds: $additionalParentIds
       notes: $notes
     ) {
       id
@@ -69,6 +75,7 @@ export const UPDATE_STRAIN_BY_ID = gql`
     $categoryId: String
     $femaleParentId: String
     $maleParentId: String
+    $additionalParentIds: [String!]
     $notes: String
   ) {
     updateStrainById(
@@ -77,6 +84,7 @@ export const UPDATE_STRAIN_BY_ID = gql`
       categoryId: $categoryId
       femaleParentId: $femaleParentId
       maleParentId: $maleParentId
+      additionalParentIds: $additionalParentIds
       notes: $notes
     ) {
       id

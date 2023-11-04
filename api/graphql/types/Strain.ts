@@ -55,6 +55,21 @@ export const StrainType = objectType({
       },
     });
 
+    t.list.field("additionalParents", {
+      type: "Strain",
+      resolve: async (strain, __, context: Context) => {
+        return await context.prisma.strain.findMany({
+          where: {
+            childrenAsAdditional: {
+              some: {
+                id: strain.id as string,
+              },
+            },
+          },
+        });
+      },
+    });
+
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });
   },

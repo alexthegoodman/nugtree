@@ -115,6 +115,7 @@ export interface NexusGenFieldTypes {
     getStrains: Array<NexusGenRootTypes['Strain'] | null> | null; // [Strain]
   }
   Strain: { // field return type
+    additionalParents: Array<NexusGenRootTypes['Strain'] | null> | null; // [Strain]
     category: NexusGenRootTypes['Category'] | null; // Category
     categoryId: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -161,6 +162,7 @@ export interface NexusGenFieldTypeNames {
     getStrains: 'Strain'
   }
   Strain: { // field return type name
+    additionalParents: 'Strain'
     category: 'Category'
     categoryId: 'String'
     createdAt: 'DateTime'
@@ -192,6 +194,7 @@ export interface NexusGenArgTypes {
       priceId: string; // String!
     }
     createStrain: { // args
+      additionalParentIds?: Array<string | null> | null; // [String]
       categoryId?: string | null; // String
       femaleParentId?: string | null; // String
       maleParentId?: string | null; // String
@@ -199,6 +202,7 @@ export interface NexusGenArgTypes {
       notes?: string | null; // String
     }
     updateStrainById: { // args
+      additionalParentIds?: Array<string | null> | null; // [String]
       categoryId?: string | null; // String
       femaleParentId?: string | null; // String
       id: string; // String!

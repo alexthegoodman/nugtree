@@ -12,6 +12,10 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     // options,
@@ -36,26 +40,40 @@ export default defineComponent({
     const { mutate } = useMutation(CREATE_STRAIN);
 
     // Watch for changes in the local data property and emit an event to update the prop
-    watch(localValue, async (newValue) => {
-      console.info("newValue", newValue);
+    watch(localValue, async (newValue: any) => {
+      console.info("newValue", props.multiple, newValue);
 
-      emit("update:modelValue", "");
-
-      if (!newValue.id) {
-        // TODO: create new strain via api
-        console.info("create new strain");
-        const { data } = await mutate({
-          name: newValue.name,
+      if (props.multiple) {
+        // emit("update:modelValue", newValue);
+        let setValue = [];
+        newValue.forEach((v) => {
+          // TODO: create new strain for multiple select
+          if (v.id) {
+            setValue.push(v.id);
+          } else {
+            setValue.push(v);
+          }
+          emit("update:modelValue", setValue);
         });
-        const newStrain = data?.createStrain;
-
-        console.info("new strain data", newStrain);
-
-        emit("update:modelValue", newStrain.id);
-      } else if (newValue.id) {
-        emit("update:modelValue", newValue.id);
       } else {
         emit("update:modelValue", "");
+
+        if (!newValue.id) {
+          // TODO: create new strain via api
+          console.info("create new strain");
+          const { data } = await mutate({
+            name: newValue.name,
+          });
+          const newStrain = data?.createStrain;
+
+          console.info("new strain data", newStrain);
+
+          emit("update:modelValue", newStrain.id);
+        } else if (newValue.id) {
+          emit("update:modelValue", newValue.id);
+        } else {
+          emit("update:modelValue", "");
+        }
       }
     });
 
@@ -108,10 +126,16 @@ const selected = ref([]);
     option-attribute="name"
     searchable
     creatable
+    :multiple="multiple"
   >
     <template #label>
       <template v-if="localValue">
-        <span>{{ localValue.name }}</span>
+        <span v-if="localValue.name">{{ localValue.name }}</span>
+        <span v-if="localValue[0]?.name"
+          >{{ localValue.length }} strain{{
+            localValue.length > 1 ? "s" : ""
+          }}</span
+        >
       </template>
       <template v-else>
         <span class="text-gray-500 dark:text-gray-400 truncate"
