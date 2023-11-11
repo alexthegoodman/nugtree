@@ -12,4 +12,10 @@ export default defineNuxtConfig({
       },
     },
   },
+  // nitro: {
+  //   preset: "vercel-edge", // you can use 'vercel' or other providers here
+  // },
+  runtimeConfig: {
+    openaiApiKey: process.env.OPENAI_API_KEY,
+  },
 });

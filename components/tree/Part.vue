@@ -16,7 +16,9 @@ const treeStore = useTreeStore();
     :style="{ color: `#${Math.floor(Math.random() * 16777215).toString(16)}` }"
   >
     <li v-for="item in items" :key="item.id">
-      <span @click="treeStore.setSelectedStrain(item.id)"
+      <span
+        @click="treeStore.setSelectedStrain(item.id)"
+        class="cursor-pointer hover:underline"
         >{{ item.label }} <strong>({{ item.name }})</strong></span
       >
       <UBadge v-if="item.category">{{ item.category.name }}</UBadge>

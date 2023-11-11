@@ -97,8 +97,14 @@ const strainDataByFemaleParent = computed(() => {
             <h2 class="text-xl font-bold">Selected Strain</h2>
           </template>
 
-          {{ selectedStrainData?.name }}</UCard
-        >
+          <h4>{{ selectedStrainData?.name }}</h4>
+
+          <AiStrainQuestions
+            v-if="selectedStrainData?.name"
+            :key="selectedStrainData?.name"
+            :name="selectedStrainData?.name"
+          />
+        </UCard>
       </div>
     </UCard>
   </UContainer>
