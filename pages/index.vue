@@ -3,6 +3,8 @@
 import { GET_STRAINS } from "~/graphql/queries/strains";
 import type { Strain } from "~/gql/graphql";
 
+const treeStore = useTreeStore();
+
 const variables = computed(() => ({
   page: 1,
   limit: 10000,
@@ -13,6 +15,10 @@ const { result, loading } = (await useQuery(GET_STRAINS, variables)) as any;
 const strainData = computed(() => {
   return result.value?.getStrains || [];
 }) as Ref<Strain[]>;
+
+const selectedStrainData = computed(() =>
+  strainData.value.find((strain) => strain.id === treeStore.selectedStrain)
+);
 
 // organize strainData into hierarchical structure
 // based on femaleParent
@@ -76,8 +82,24 @@ const strainDataByFemaleParent = computed(() => {
 <template>
   <UContainer>
     <UCard>
-      <ULink to="/manager/strains/">Manage Strains</ULink>
-      <TreePart :items="strainDataByFemaleParent" />
+      <template #header>
+        <div class="flex flex-row justify-between items-center">
+          <h1 class="text-2xl font-bold">NugTree</h1>
+
+          <ULink to="/manager/strains/">Manage Strains</ULink>
+        </div>
+      </template>
+
+      <div class="grid" style="grid-template-columns: 1fr 1fr">
+        <TreePart :items="strainDataByFemaleParent" />
+        <UCard v-if="treeStore.selectedStrain">
+          <template #header>
+            <h2 class="text-xl font-bold">Selected Strain</h2>
+          </template>
+
+          {{ selectedStrainData?.name }}</UCard
+        >
+      </div>
     </UCard>
   </UContainer>
 </template>

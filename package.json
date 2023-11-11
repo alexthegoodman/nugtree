@@ -30,6 +30,7 @@
     "@as-integrations/h3": "^1.1.6",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@grapoza/vue-tree": "^5.2.2",
+    "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.5.2",
     "@vue-flow/core": "^1.24.0",
     "@vue/apollo-composable": "^4.0.0-beta.11",
@@ -41,6 +42,7 @@
     "mixpanel": "^0.18.0",
     "nexus": "^1.3.0",
     "nuxt-graphql-server": "^3.0.0",
+    "pinia": "^2.1.7",
     "stripe": "^14.2.0",
     "uuid": "^9.0.1",
     "yup": "^1.3.2"
