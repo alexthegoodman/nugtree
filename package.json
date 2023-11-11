@@ -12,6 +12,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.9.0",
     "@nuxtjs/apollo": "^5.0.0-alpha.7",
@@ -27,6 +28,7 @@
   "dependencies": {
     "@apollo/server": "^4.9.5",
     "@as-integrations/h3": "^1.1.6",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@grapoza/vue-tree": "^5.2.2",
     "@prisma/client": "^5.5.2",
     "@vue-flow/core": "^1.24.0",

@@ -16,6 +16,7 @@ Start the development server on `http://localhost:3000`:
 
 ```bash
 npm run dev
+npx graphql-codegen --watch
 ```
 
 ## Production
