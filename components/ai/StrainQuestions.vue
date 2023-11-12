@@ -1,3 +1,4 @@
+import type { parse } from 'path'; import type { cp } from 'fs';
 <script setup lang="ts">
 import { useCompletion } from "ai/vue";
 
@@ -11,78 +12,58 @@ const { name } = defineProps({
 console.info("name", name, name.value);
 
 const {
+  input: structuredInput,
+  handleSubmit: structuredSubmit,
+  completion: structuredCompletion,
+  isLoading: structuredIsLoading,
+  complete: structuredComplete,
+} = useCompletion({
+  api: "/api/structured",
+  initialInput: `${name}`,
+});
+
+const structuredQuestions = computed(() =>
+  structuredCompletion.value
+    ? JSON.parse(JSON.parse(structuredCompletion.value).text)
+    : null
+);
+
+console.info(
+  "structured questions",
+  structuredQuestions.value,
+  structuredCompletion.value
+);
+
+onMounted(async () => {
+  console.info("structured submit", name);
+  structuredComplete(name);
+});
+
+const {
   input: aboutStrainInput,
   handleSubmit: aboutStrainSubmit,
   completion: aboutStrainCompletion,
   isLoading: aboutStrainIsLoading,
+  complete: aboutStrainComplete,
 } = useCompletion({
   api: "/api/completion",
-  initialInput: `Tell me about ${name}`,
-});
-
-const {
-  input: originsInput,
-  handleSubmit: originsSubmit,
-  completion: originsCompletion,
-  isLoading: originsIsLoading,
-} = useCompletion({
-  api: "/api/completion",
-  initialInput: `What are the origins of ${name}`,
-});
-
-const {
-  input: effectsInput,
-  handleSubmit: effectsSubmit,
-  completion: effectsCompletion,
-  isLoading: effectsIsLoading,
-} = useCompletion({
-  api: "/api/completion",
-  initialInput: `What are the effects of ${name}`,
-});
-
-const {
-  input: medicalUsesInput,
-  handleSubmit: medicalUsesSubmit,
-  completion: medicalUsesCompletion,
-  isLoading: medicalUsesIsLoading,
-} = useCompletion({
-  api: "/api/completion",
-  initialInput: `What are the medical uses of ${name}`,
 });
 </script>
 
 <template>
   <h5>Ask AI</h5>
 
+  <UProgress v-if="structuredIsLoading" animation="carousel" />
+
   <UButton
-    @click="aboutStrainSubmit"
-    color="primary"
+    v-for="question in structuredQuestions"
+    @click="aboutStrainComplete(question)"
     :loading="aboutStrainIsLoading"
-    >Tell me about {{ name }}</UButton
   >
-  <UButton @click="originsSubmit" color="primary" :loading="originsIsLoading"
-    >What are the origins of {{ name }}</UButton
-  >
-  <UButton @click="effectsSubmit" color="primary" :loading="effectsIsLoading"
-    >What are the effects of {{ name }}</UButton
-  >
-  <UButton
-    @click="medicalUsesSubmit"
-    color="primary"
-    :loading="medicalUsesIsLoading"
-    >What are the medical uses of {{ name }}</UButton
-  >
+    {{ question }}
+  </UButton>
 
   <p v-if="aboutStrainCompletion" class="block whitespace-pre-line mb-2">
     {{ aboutStrainCompletion }}
-  </p>
-  <p v-if="originsCompletion" class="block whitespace-pre-line mb-2">
-    {{ originsCompletion }}
-  </p>
-  <p v-if="effectsCompletion" class="block whitespace-pre-line mb-2">
-    {{ effectsCompletion }}
-  </p>
-  <p v-if="medicalUsesCompletion" class="block whitespace-pre-line mb-2">
-    {{ medicalUsesCompletion }}
   </p>
 </template>

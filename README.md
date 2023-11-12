@@ -1,6 +1,8 @@
 # NugTree
 
-Browse cannabis strains in an intuitive tree diagram / mind map format.
+[![NugTree](./public/nugtree.png)](./public/nugtree.png)
+
+Browse cannabis strains in an intuitive tree format. AI generates questions and answers about strains to help you find the perfect one.
 
 ## Setup
 
