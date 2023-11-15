@@ -1,4 +1,3 @@
-import type { parse } from 'path'; import type { cp } from 'fs';
 <script setup lang="ts">
 import { useCompletion } from "ai/vue";
 
@@ -8,8 +7,6 @@ const { name } = defineProps({
     required: true,
   },
 });
-
-console.info("name", name, name.value);
 
 const {
   input: structuredInput,
@@ -28,14 +25,7 @@ const structuredQuestions = computed(() =>
     : null
 );
 
-console.info(
-  "structured questions",
-  structuredQuestions.value,
-  structuredCompletion.value
-);
-
 onMounted(async () => {
-  console.info("structured submit", name);
   structuredComplete(name);
 });
 

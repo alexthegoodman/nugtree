@@ -99,6 +99,12 @@ const strainDataByFemaleParent = computed(() => {
 
           <h4>{{ selectedStrainData?.name }}</h4>
 
+          <StrainYoutubeResults
+            v-if="selectedStrainData?.name"
+            :key="selectedStrainData?.name + 'youtube'"
+            :name="selectedStrainData?.name"
+          />
+
           <AiStrainQuestions
             v-if="selectedStrainData?.name"
             :key="selectedStrainData?.name"
